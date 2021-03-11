@@ -56,8 +56,8 @@ public class MemberController {
     /**
      * 회원 수정 V1
      */
-    @PostMapping("/api/v1/members/{id}")
-    public UpdateMemberResponse updateMember(@PathVariable("id") Long id,
+    @PostMapping("/api/v1/members/{memberId}")
+    public UpdateMemberResponse updateMember(@PathVariable("memberId") Long id,
                                              @RequestBody @Valid UpdateMemberRequest request) {
         memberService.update(id, request.getName() , request.getEmail());
         Member findMember = memberService.findOne(id);
@@ -106,11 +106,9 @@ public class MemberController {
         private String email;
     }
 
-    @DeleteMapping("/api/vi/members/{id}")
-    public void deleteMember (@PathVariable("id") Long id) {
-        Member member = new Member();
-        member.setId(id);
-        memberService.delete(member);
+    @DeleteMapping("/api/v1/members/{memberId}")
+    public void deleteMember (@PathVariable("memberId") Long id) {
+        memberService.delete(id);
     }
 
 }

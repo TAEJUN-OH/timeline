@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,7 +20,11 @@ public class PostController {
     private final MemberService memberService;
     private final PostService postService;
 
-    @PostMapping("/api/v1/post/{memberId}")
+
+    /**
+     * 포스트 등록 v1
+     */
+    @PostMapping("/api/v1/posts/{memberId}")
     public void createPost(@PathVariable("memberId") Long memberId, @RequestBody @Valid CreatePostRequest request) {
         postService.post(memberId, request.getContent());
     }
@@ -35,10 +40,18 @@ public class PostController {
 
     }
 
-//    @GetMapping("/api/v1/post")
-//    public Result posts() {
-////        List<Post> posts =
-//    }
+    /**
+     * 포스트 조회 v1
+     */
+    @GetMapping("/api/v1/posts/{memberId}")
+    public Result posts(@PathVariable Long memberId) {
+        Member member = memberService.findOne(memberId);
+        List<Post> findPosts = member.getPosts();
+        List<PostDto> collect = findPosts.stream()
+                .map(m -> new PostDto(m.getContent()))
+                .collect(Collectors.toList());
+        return new Result(collect);
+    }
 
     @Data
     @AllArgsConstructor
@@ -49,7 +62,14 @@ public class PostController {
     @Data
     @AllArgsConstructor
     class PostDto {
-        private String name;
         private String content;
+    }
+
+    /**
+     * 포스트 삭제 v1
+     */
+    @DeleteMapping("/api/v1/posts/{postId}")
+    public void deletePost(@PathVariable Long postId) {
+        postService.delete(postId);
     }
 }

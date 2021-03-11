@@ -67,7 +67,7 @@ public class MemberService {
      * 회원 삭제
      */
     @Transactional
-    public void delete(Member member) {
-        memberRepository.delete(member);
+    public void delete(Long memberId) {
+        memberRepository.deleteByMember(memberId);
     }
 }

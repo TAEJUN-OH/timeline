@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "memeber_id")
     private Long id;
 
@@ -25,6 +25,8 @@ public class Member {
 
     @NotEmpty
     private String email;
+
+    private String delYn;
 
     private LocalDateTime createdAt;
 

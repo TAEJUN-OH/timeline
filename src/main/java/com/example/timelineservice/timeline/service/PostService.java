@@ -3,12 +3,12 @@ package com.example.timelineservice.timeline.service;
 import com.example.timelineservice.timeline.domain.Member;
 import com.example.timelineservice.timeline.domain.Post;
 import com.example.timelineservice.timeline.repository.MemberRepository;
-import com.example.timelineservice.timeline.repository.MemberRepositoryOrigin;
 import com.example.timelineservice.timeline.repository.PostRepository;
-import com.example.timelineservice.timeline.repository.PostRepositoryOrigin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -37,11 +37,26 @@ public class PostService {
     }
 
     /**
-     * 포스팅 수정
+     * 포스트 조회
+     */
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
+
+    /**
+     * 포스트 수정
      */
     @Transactional
     public void update(Long id, String name) {
         //엔티티 조회
 
+    }
+
+    /**
+     * 포스트 삭제
+     */
+    @Transactional
+    public void delete(Long id) {
+        postRepository.deleteById(id);
     }
 }

@@ -31,8 +31,24 @@ public class InitDb {
         public void dbInit1() {
             Member member = new Member();
             member.setName("userA");
-            member.setEmail("tjo7718@gmail.com");
+            member.setEmail("aaa@gmail.com");
+
+            Member member2 = new Member();
+            member2.setName("userB");
+            member2.setEmail("bbb@gmail.com");
+
+            Member member3 = new Member();
+            member3.setName("userC");
+            member3.setEmail("ccc@gmail.com");
+
+            Member member4 = new Member();
+            member4.setName("userD");
+            member4.setEmail("ddd@gmail.com");
+
             em.persist(member);
+            em.persist(member2);
+            em.persist(member3);
+            em.persist(member4);
         }
     }
 
