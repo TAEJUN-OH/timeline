@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Table(name = "post")
+//@Table(name = "post")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post {
@@ -26,11 +26,13 @@ public class Post {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private String contents;
+    private String content;
 
     private Integer likeCnt;
 
-    private LocalDateTime postDate; //작성시간
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     private PostStatus status; //포스팅 상태[POST, CANCEL]
@@ -42,12 +44,12 @@ public class Post {
     }
 
     //==생성 메서드==/
-    public static Post createPost(Member member , String contents) {
+    public static Post createPost(Member member , String content) {
         Post post = new Post();
         post.setMember(member);
-        post.setContents(contents);
-        post.setPostDate(LocalDateTime.now());
-        post.setStatus(PostStatus.POST);
+        post.setContent(content);
+        post.setCreatedAt(LocalDateTime.now());
+        post.setUpdatedAt(LocalDateTime.now());
         return post;
     }
 }

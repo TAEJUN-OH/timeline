@@ -22,13 +22,13 @@ public class PostService {
      * 포스팅
      */
     @Transactional
-    public Long post(Long memberId , String contents) {
+    public Long post(Long memberId , String content) {
 
         //엔티티 조회
         Member member = memberRepository.findById(memberId).get();
 
         //포스트 생성
-        Post post = Post.createPost(member, contents);
+        Post post = Post.createPost(member, content);
 
         //포스트 저장
         postRepository.save(post);
