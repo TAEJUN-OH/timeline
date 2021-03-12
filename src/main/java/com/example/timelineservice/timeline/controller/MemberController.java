@@ -44,7 +44,7 @@ public class MemberController {
     }
 
     @Data
-    class CreateMemberResponse { //클라이언트로 보내줄 데이터
+    static class CreateMemberResponse { //클라이언트로 보내줄 데이터
         private Long id;
 
         public CreateMemberResponse(Long id) {

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/timelinetest02
+    url: jdbc:h2:tcp://localhost/~/timelinetest
 #    url: jdbc:h2:mem:timelinetest
     username: sa
     password:

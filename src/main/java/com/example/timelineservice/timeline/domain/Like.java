@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Table(name = "like")
+@Table(name = "likes")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Like {
@@ -47,5 +47,4 @@ public class Like {
         like.setCreatedAt(LocalDateTime.now());
         return like;
     }
-
 }

@@ -48,7 +48,7 @@ public class Post {
         member.getPosts().add(this);
     }
 
-    //==생성 메서드==/
+    //==생성 메서드==//
     public static Post createPost(Member member , String content) {
         Post post = new Post();
         post.setMember(member);

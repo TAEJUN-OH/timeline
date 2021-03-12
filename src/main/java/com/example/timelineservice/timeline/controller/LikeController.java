@@ -43,7 +43,7 @@ public class LikeController {
     }
 
     /**
-     * 좋아요 조회 v1
+     * 좋아요 갯수 조회 v1
      */
     @GetMapping("/api/v1/likes/{postId}")
     public ResultLikes likes(@PathVariable("postId") Long postId) {

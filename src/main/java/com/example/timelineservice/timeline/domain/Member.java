@@ -37,11 +37,11 @@ public class Member {
     @JsonIgnoreProperties({"member","like"})
     private List<Post> posts = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "member")
-//    private List<Follow> follows = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<Like> likes = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    @JsonIgnoreProperties({"member"})
+    private List<Follow> follower = new ArrayList<>();
 
-
+    @OneToMany(mappedBy = "followMember")
+    @JsonIgnoreProperties({"followMember"})
+    private List<Follow> following = new ArrayList<>();
 }
