@@ -12,7 +12,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter @Setter
 public class Follow {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "follow_id")
     private Long id;
 

@@ -1,6 +1,7 @@
 package com.example.timelineservice.timeline.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,10 +34,14 @@ public class Member {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "member")
+    @JsonIgnoreProperties({"member","like"})
     private List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    private List<Follow> follows = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<Follow> follows = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "member")
+//    private List<Like> likes = new ArrayList<>();
 
 
 }

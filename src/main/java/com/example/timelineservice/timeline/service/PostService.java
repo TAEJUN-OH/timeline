@@ -39,6 +39,14 @@ public class PostService {
     /**
      * 포스트 조회
      */
+    public Post findOne(Long postId){
+        Post post = postRepository.findById(postId).get();
+        return post;
+    }
+
+    /**
+     * 포스트 전체 조회
+     */
     public List<Post> findAll() {
         return postRepository.findAll();
     }
@@ -47,9 +55,10 @@ public class PostService {
      * 포스트 수정
      */
     @Transactional
-    public void update(Long id, String name) {
+    public void update(Long id, String content) {
         //엔티티 조회
-
+        Post post = postRepository.findById(id).get();
+        post.setContent(content);
     }
 
     /**

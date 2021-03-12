@@ -25,8 +25,9 @@ public class PostController {
      * 포스트 등록 v1
      */
     @PostMapping("/api/v1/posts/{memberId}")
-    public void createPost(@PathVariable("memberId") Long memberId, @RequestBody @Valid CreatePostRequest request) {
-        postService.post(memberId, request.getContent());
+    public CreatePostResponse createPost(@PathVariable("memberId") Long memberId, @RequestBody @Valid CreatePostRequest request) {
+        Long postedId = postService.post(memberId, request.getContent());
+        return new CreatePostResponse(postedId);
     }
 
     @Data
@@ -37,7 +38,11 @@ public class PostController {
 
     @Data
     static class CreatePostResponse { //클라이언트로 보내줄 데이터
+        private Long id;
 
+        public CreatePostResponse(Long id) {
+            this.id = id;
+        }
     }
 
     /**
@@ -64,6 +69,22 @@ public class PostController {
     class PostDto {
         private String content;
     }
+
+
+    /**
+     * 포스트 수정 v1
+     */
+    @PostMapping("/api/v1/{postId}/posts")
+    public void updatePost(@PathVariable("postId") Long postId, @RequestBody @Valid UpdateMemberRequest request) {
+        postService.update(postId, request.getContent());
+    }
+
+    @Data
+    static class UpdateMemberRequest {
+        private String content;
+    }
+
+
 
     /**
      * 포스트 삭제 v1
