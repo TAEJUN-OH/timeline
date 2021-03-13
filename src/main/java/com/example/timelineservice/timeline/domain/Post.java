@@ -33,7 +33,7 @@ public class Post {
 
     private String content;
 
-    private Integer likeCnt;
+    private Long likeCnt;
 
     private LocalDateTime createdAt;
 

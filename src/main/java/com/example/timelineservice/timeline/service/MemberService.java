@@ -2,13 +2,11 @@ package com.example.timelineservice.timeline.service;
 
 import com.example.timelineservice.timeline.domain.Member;
 import com.example.timelineservice.timeline.repository.MemberRepository;
-import com.example.timelineservice.timeline.repository.MemberRepositoryOrigin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional

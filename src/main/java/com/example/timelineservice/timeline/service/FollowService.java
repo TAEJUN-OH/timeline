@@ -25,8 +25,17 @@ public class FollowService {
     public Long follow(Long memberId , Long followMemberId) {
         Member member = memberService.findOne(memberId);
         Member followMember = memberService.findOne(followMemberId);
+        validateFollow(memberId, followMemberId); //팔로우 중복 체크
         Follow follow = Follow.createFollow(member, followMember);
+        followRepository.save(follow);
         return follow.getId();
+    }
+
+    public void validateFollow(Long memberId , Long followMemberId) {
+        Follow follow = followRepository.findByFollow(memberId, followMemberId);
+        if (follow != null) {
+            throw new IllegalStateException("이미 팔로우 한 회원입니다.");
+        }
     }
 
     /**

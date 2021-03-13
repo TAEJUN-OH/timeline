@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class PostService {
 
@@ -45,11 +45,20 @@ public class PostService {
     }
 
     /**
+     * 뉴스 피드
+     */
+    public List<Post> findByNewsFeed(Long memberId) {
+        return postRepository.findByNewsFeed(memberId);
+    }
+
+
+    /**
      * 포스트 전체 조회
      */
     public List<Post> findAll() {
         return postRepository.findAll();
     }
+
 
     /**
      * 포스트 수정

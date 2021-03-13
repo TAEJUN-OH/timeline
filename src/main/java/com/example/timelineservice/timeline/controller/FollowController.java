@@ -1,7 +1,6 @@
 package com.example.timelineservice.timeline.controller;
 
 import com.example.timelineservice.timeline.domain.Follow;
-import com.example.timelineservice.timeline.domain.Member;
 import com.example.timelineservice.timeline.service.FollowService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,7 +48,7 @@ public class FollowController {
     public Result follower(@PathVariable("followerId") Long followerId) {
         List<Follow> findFollower = followService.follower(followerId);
         List<FollowDto> collect = findFollower.stream()
-                .map(m -> new FollowDto(m.getId(), m.getFollowMember()))
+                .map(m -> new FollowDto(m.getId(), m.getMember().getName()))
                 .collect(Collectors.toList());
         return new Result(collect);
     }
@@ -65,18 +64,18 @@ public class FollowController {
     @AllArgsConstructor
     class FollowDto {
         private Long followId;
-        private Member member;
+        private String name;
     }
 
 
     /**
      * 팔로잉 회원 v1
      */
-    @GetMapping("/api/v1/follower/{memberId}")
+    @GetMapping("/api/v1/following/{memberId}")
     public Result following(@PathVariable("memberId") Long memberId) {
         List<Follow> findFollowing = followService.following(memberId);
         List<FollowDto> collect = findFollowing.stream()
-                .map(m -> new FollowDto(m.getId(), m.getMember()))
+                .map(m -> new FollowDto(m.getId(), m.getFollowMember().getName()))
                 .collect(Collectors.toList());
         return new Result(collect);
     }

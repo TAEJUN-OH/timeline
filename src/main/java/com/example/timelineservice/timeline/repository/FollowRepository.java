@@ -10,10 +10,15 @@ import java.util.List;
 public interface FollowRepository extends JpaRepository<Follow , Long> {
 
     //팔로워
-    @Query("select f from Follow f where f.followMember = :followMemberId")
+    @Query("select f from Follow f where f.followMember.id = :followMemberId")
     List<Follow> findByFollower(@Param("followMemberId") Long followMemberId);
 
     //팔로잉
-    @Query("select f from Follow f where f.member = :memberId")
+    @Query("select f from Follow f where f.member.id = :memberId")
     List<Follow> findByFollowing(@Param("memberId") Long memberId);
+
+    //팔로우
+    @Query("select f from Follow f where f.member.id = :memberId and f.followMember.id = :followMemberId")
+    Follow findByFollow(@Param("memberId") Long memberId, @Param("followMemberId") Long followMemberId);
+
 }

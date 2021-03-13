@@ -2,7 +2,6 @@ package com.example.timelineservice.timeline.service;
 
 import com.example.timelineservice.timeline.domain.Member;
 import com.example.timelineservice.timeline.repository.MemberRepository;
-import com.example.timelineservice.timeline.repository.MemberRepositoryOrigin;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
