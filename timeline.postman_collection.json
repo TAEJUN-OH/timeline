@@ -6,7 +6,16 @@
 	},
 	"item": [
 		{
-			"name": "회원조회",
+			"name": "회원등록",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "회원 전체조회",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -23,6 +32,15 @@
 						"members"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "회원조회",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
 			},
 			"response": []
 		},
@@ -145,6 +163,15 @@
 			"response": []
 		},
 		{
+			"name": "포스트 조회",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
 			"name": "좋아요 등록",
 			"request": {
 				"method": "POST",
@@ -170,28 +197,6 @@
 						"api",
 						"v1",
 						"likes"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "좋아요수",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9999/api/v1/likes/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"likes",
-						"1"
 					]
 				}
 			},

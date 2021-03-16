@@ -33,14 +33,11 @@ public class Post {
 
     private String content;
 
-    private Long likeCnt;
+    private Integer likeCnt;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
-
-    @Enumerated(EnumType.STRING)
-    private PostStatus status; //포스팅 상태[POST, CANCEL]
 
     //==연관관계 메서드==//
     public void setMember(Member member) {
@@ -53,6 +50,7 @@ public class Post {
         Post post = new Post();
         post.setMember(member);
         post.setContent(content);
+        post.setLikeCnt(0);
         post.setCreatedAt(LocalDateTime.now());
         post.setUpdatedAt(LocalDateTime.now());
         return post;

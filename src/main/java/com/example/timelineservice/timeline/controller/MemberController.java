@@ -23,10 +23,7 @@ public class MemberController {
      */
     @PostMapping("/api/v1/members")
     public CreateMemberResponse createMember(@RequestBody @Valid CreateMemberRequest request) {
-        Member member = new Member();
-        member.setName(request.getName());
-        member.setEmail(request.getEmail());
-
+        Member member = Member.createMember(request.getName(), request.getEmail());
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
     }
@@ -40,7 +37,6 @@ public class MemberController {
         //회원 등록할 정보들
         private String name;
         private String email;
-
     }
 
     @Data
@@ -78,9 +74,18 @@ public class MemberController {
         private String email;
     }
 
-
     /**
      * 회원 조회 V1
+     */
+    @GetMapping("/api/v1/members/{memberId}")
+    public MemberDto findMember(@PathVariable("memberId") Long memberId) {
+        Member member = memberService.findOne(memberId);
+        return new MemberDto(member.getId(), member.getName(), member.getEmail() , member.getDelYn());
+    }
+
+
+    /**
+     * 회원 전체조회 V1
      */
     @GetMapping("/api/v1/members")
     public Result members() {
@@ -89,7 +94,7 @@ public class MemberController {
 
         //엔티티 -> DTO 변환
         List<MemberDto> collect = findMembers.stream()
-                .map(m -> new MemberDto(m.getName() , m.getEmail()))
+                .map(m -> new MemberDto(m.getId(), m.getName() , m.getEmail() , m.getDelYn()))
                 .collect(Collectors.toList());
         return new Result(collect);
     }
@@ -103,8 +108,10 @@ public class MemberController {
     @Data
     @AllArgsConstructor
     class MemberDto {
+        private Long id;
         private String name;
         private String email;
+        private String delYn;
     }
 
     @DeleteMapping("/api/v1/members/{memberId}")

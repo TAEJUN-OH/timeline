@@ -1,9 +1,7 @@
 package com.example.timelineservice.timeline.service;
 
-import com.example.timelineservice.timeline.domain.Follow;
 import com.example.timelineservice.timeline.domain.Member;
 import com.example.timelineservice.timeline.domain.Post;
-import com.example.timelineservice.timeline.repository.FollowRepository;
 import com.example.timelineservice.timeline.repository.MemberRepository;
 import com.example.timelineservice.timeline.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,24 +39,32 @@ public class PostService {
     /**
      * 포스트 조회
      */
+    @Transactional(readOnly = true)
     public Post findOne(Long postId){
         Post post = postRepository.findById(postId).get();
         return post;
     }
 
+
     /**
-     * 뉴스 피드
+     * 내 포스트 조회 (10개씩) paging 추가예정
      */
-    public List<Post> findByNewsFeed(Long memberId) {
-        return postRepository.findByNewsFeed(memberId);
+    @Transactional(readOnly = true)
+    public List<Post> findByPosts(Long memberId){
+        List<Post> posts = postRepository.findAllByIdOrderByCreatedAtDesc(memberId);
+        return posts;
     }
 
 
+
     /**
-     * 포스트 전체 조회
+     * 뉴스 피드 (10개씩) paging 추가예정
      */
-    public List<Post> findAll() {
-        return postRepository.findAll();
+    @Transactional(readOnly = true)
+    public List<Post> findByNewsFeed(Long memberId) {
+        List<Post> findNewsFeed = postRepository.findByNewsFeed(memberId);
+
+        return findNewsFeed;
     }
 
 

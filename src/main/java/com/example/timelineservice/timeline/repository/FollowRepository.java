@@ -1,24 +1,20 @@
 package com.example.timelineservice.timeline.repository;
 
 import com.example.timelineservice.timeline.domain.Follow;
+import com.example.timelineservice.timeline.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface FollowRepository extends JpaRepository<Follow , Long> {
 
     //팔로워
-    @Query("select f from Follow f where f.followMember.id = :followMemberId")
-    List<Follow> findByFollower(@Param("followMemberId") Long followMemberId);
+    List<Follow> findByFollowMember(Member followMember);
 
     //팔로잉
-    @Query("select f from Follow f where f.member.id = :memberId")
-    List<Follow> findByFollowing(@Param("memberId") Long memberId);
+    List<Follow> findByMember(Member member);
 
     //팔로우
-    @Query("select f from Follow f where f.member.id = :memberId and f.followMember.id = :followMemberId")
-    Follow findByFollow(@Param("memberId") Long memberId, @Param("followMemberId") Long followMemberId);
+    Follow findByMemberIdAndFollowMemberId(Long memberId, Long followMemberId);
 
 }

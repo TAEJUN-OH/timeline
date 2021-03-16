@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 
 @Service
@@ -24,10 +25,18 @@ public class LikeService {
      */
     @Transactional
     public Long like(Long postId , Long memberId) {
+        Boolean isLike = likeRepository.existsByPostIdAndMemberId(postId, memberId);
+        if (isLike) {
+            throw new IllegalStateException("이미 좋아요를 누르셨습니다");
+        }
+
         Member member = memberService.findOne(memberId);
         Post post = postService.findOne(postId);
         Like like = Like.createLike(member, post);
         likeRepository.save(like);
+
+        List<Like> likes = likeRepository.findAllById(postId);
+        post.setLikeCnt(likes.size() + 1);
         return like.getId();
     }
 
@@ -36,7 +45,10 @@ public class LikeService {
      * 좋아요 취소
      */
     @Transactional
-    public void cancel(Long likeId) {
+    public void cancel(Long likeId , Long postId) {
+        Post post = postService.findOne(postId);
+        List<Like> likes = likeRepository.findAllById(postId);
+        if (likes.size() > 0) {post.setLikeCnt(likes.size() - 1);}
         likeRepository.deleteById(likeId);
     }
 }

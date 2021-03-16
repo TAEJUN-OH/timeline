@@ -48,7 +48,7 @@ public class FollowController {
     public Result follower(@PathVariable("followerId") Long followerId) {
         List<Follow> findFollower = followService.follower(followerId);
         List<FollowDto> collect = findFollower.stream()
-                .map(m -> new FollowDto(m.getId(), m.getMember().getName()))
+                .map(m -> new FollowDto(m.getId(), m.getMember().getName() , m.getMember().getId() , m.getFollowMember().getId()))
                 .collect(Collectors.toList());
         return new Result(collect);
     }
@@ -65,6 +65,8 @@ public class FollowController {
     class FollowDto {
         private Long followId;
         private String name;
+        private Long memberId;
+        private Long followMemberId;
     }
 
 
@@ -75,7 +77,7 @@ public class FollowController {
     public Result following(@PathVariable("memberId") Long memberId) {
         List<Follow> findFollowing = followService.following(memberId);
         List<FollowDto> collect = findFollowing.stream()
-                .map(m -> new FollowDto(m.getId(), m.getFollowMember().getName()))
+                .map(m -> new FollowDto(m.getId(), m.getFollowMember().getName() , m.getMember().getId() , m.getFollowMember().getId()))
                 .collect(Collectors.toList());
         return new Result(collect);
     }

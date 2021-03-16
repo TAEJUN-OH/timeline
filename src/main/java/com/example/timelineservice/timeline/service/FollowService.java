@@ -32,27 +32,29 @@ public class FollowService {
     }
 
     public void validateFollow(Long memberId , Long followMemberId) {
-        Follow follow = followRepository.findByFollow(memberId, followMemberId);
+        Follow follow = followRepository.findByMemberIdAndFollowMemberId(memberId, followMemberId);
         if (follow != null) {
             throw new IllegalStateException("이미 팔로우 한 회원입니다.");
         }
     }
 
     /**
-     * 팔로워
+     * 팔로워 조회
      */
     @Transactional
     public List<Follow> follower(Long followMemberId) {
-        return followRepository.findByFollower(followMemberId);
+        Member followMember = memberService.findOne(followMemberId);
+        return followRepository.findByFollowMember(followMember);
     }
 
 
     /**
-     * 팔로잉
+     * 팔로잉 조회
      */
     @Transactional
     public List<Follow> following(Long memberId) {
-        return followRepository.findByFollowing(memberId);
+        Member followingMember = memberService.findOne(memberId);
+        return followRepository.findByMember(followingMember);
     }
 
 

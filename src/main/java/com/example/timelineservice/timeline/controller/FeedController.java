@@ -26,7 +26,7 @@ public class FeedController {
     public Result feeds(@PathVariable("memberId") Long memberId) {
         List<Post> newsFeed = postService.findByNewsFeed(memberId);
         List<FeedDto> collect = newsFeed.stream()
-                .map(m -> new FeedDto(m.getContent(), m.getMember().getName(), m.getLikeCnt()))
+                .map(m -> new FeedDto(m.getMember().getId(), m.getId() ,m.getContent(), m.getMember().getName(), m.getLikeCnt()))
                 .collect(Collectors.toList());
         return new Result(collect);
     }
@@ -40,9 +40,11 @@ public class FeedController {
     @Data
     @AllArgsConstructor
     class FeedDto {
+        private Long memberId;
+        private Long postId;
         private String content;
         private String name;
-        private Long likeCnt;
+        private Integer likeCnt;
     }
 }
 

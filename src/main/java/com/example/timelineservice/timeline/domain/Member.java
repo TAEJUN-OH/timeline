@@ -44,4 +44,15 @@ public class Member {
     @OneToMany(mappedBy = "followMember")
     @JsonIgnoreProperties({"followMember"})
     private List<Follow> following = new ArrayList<>();
+
+    //==생성 메서드==//
+    public static Member createMember(String name , String email) {
+        Member member = new Member();
+        member.setName(name);
+        member.setEmail(email);
+        member.setDelYn("N");
+        member.setCreatedAt(LocalDateTime.now());
+        member.setUpdatedAt(LocalDateTime.now());
+        return member;
+    }
 }

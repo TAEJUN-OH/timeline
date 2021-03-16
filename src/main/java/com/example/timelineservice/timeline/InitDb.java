@@ -31,18 +31,22 @@ public class InitDb {
             Member member = new Member();
             member.setName("userA");
             member.setEmail("aaa@gmail.com");
+            member.setDelYn("N");
 
             Member member2 = new Member();
             member2.setName("userB");
             member2.setEmail("bbb@gmail.com");
+            member2.setDelYn("N");
 
             Member member3 = new Member();
             member3.setName("userC");
             member3.setEmail("ccc@gmail.com");
+            member3.setDelYn("N");
 
             Member member4 = new Member();
             member4.setName("userD");
             member4.setEmail("ddd@gmail.com");
+            member4.setDelYn("N");
 
             em.persist(member);
             em.persist(member2);

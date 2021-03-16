@@ -1,8 +1,6 @@
 package com.example.timelineservice.timeline.controller;
 
-import com.example.timelineservice.timeline.domain.Member;
 import com.example.timelineservice.timeline.domain.Post;
-import com.example.timelineservice.timeline.service.MemberService;
 import com.example.timelineservice.timeline.service.PostService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,9 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final MemberService memberService;
     private final PostService postService;
-
 
     /**
      * 포스트 등록 v1
@@ -31,13 +27,13 @@ public class PostController {
     }
 
     @Data
-    static class CreatePostRequest { //클라이언트에서 넘어온 요청 파라미터
+    static class CreatePostRequest {
         private String content;
     }
 
 
     @Data
-    static class CreatePostResponse { //클라이언트로 보내줄 데이터
+    static class CreatePostResponse {
         private Long id;
 
         public CreatePostResponse(Long id) {
@@ -49,11 +45,10 @@ public class PostController {
      * 포스트 조회 v1
      */
     @GetMapping("/api/v1/posts/{memberId}")
-    public Result posts(@PathVariable Long memberId) {
-        Member member = memberService.findOne(memberId);
-        List<Post> findPosts = member.getPosts();
+    public Result findByPost(@PathVariable Long memberId) {
+        List<Post> findPosts = postService.findByPosts(memberId);
         List<PostDto> collect = findPosts.stream()
-                .map(m -> new PostDto(m.getContent()))
+                .map(m -> new PostDto(m.getId() , m.getMember().getName() , m.getMember().getEmail() , m.getContent() , m.getLikeCnt()))
                 .collect(Collectors.toList());
         return new Result(collect);
     }
@@ -67,7 +62,11 @@ public class PostController {
     @Data
     @AllArgsConstructor
     class PostDto {
+        private Long id;
+        private String name;
+        private String email;
         private String content;
+        private Integer likeCnt;
     }
 
 
@@ -75,12 +74,12 @@ public class PostController {
      * 포스트 수정 v1
      */
     @PostMapping("/api/v1/{postId}/posts")
-    public void updatePost(@PathVariable("postId") Long postId, @RequestBody @Valid UpdateMemberRequest request) {
+    public void updatePost(@PathVariable("postId") Long postId, @RequestBody @Valid UpdatePostRequest request) {
         postService.update(postId, request.getContent());
     }
 
     @Data
-    static class UpdateMemberRequest {
+    static class UpdatePostRequest {
         private String content;
     }
 

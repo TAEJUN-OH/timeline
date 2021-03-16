@@ -37,7 +37,7 @@ public class MemberService {
     /**
      * 회원 전체조회
      */
-    @Transactional(readOnly = true) //읽기에는 readOnly 를 쓴다.
+    @Transactional(readOnly = true)
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
@@ -65,7 +65,8 @@ public class MemberService {
      * 회원 삭제
      */
     @Transactional
-    public void delete(Long memberId) {
-        memberRepository.deleteByMember(memberId);
+    public void delete(Long memberId) { //변경감지
+        Member member = memberRepository.findById(memberId).get();
+        member.setDelYn("Y");
     }
 }
