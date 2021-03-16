@@ -61,7 +61,7 @@ public class MemberController {
                                              @RequestBody @Valid UpdateMemberRequest request) {
         memberService.update(id, request.getName() , request.getEmail());
         Member findMember = memberService.findOne(id);
-        return new UpdateMemberResponse(findMember.getId(), findMember.getName());
+        return new UpdateMemberResponse(findMember.getId(), findMember.getName() , findMember.getEmail());
     }
 
     @Data
@@ -75,6 +75,7 @@ public class MemberController {
     class UpdateMemberResponse {
         private Long id;
         private String name;
+        private String email;
     }
 
 

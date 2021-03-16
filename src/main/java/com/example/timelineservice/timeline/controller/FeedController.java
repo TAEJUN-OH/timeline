@@ -18,6 +18,10 @@ public class FeedController {
 
     private final PostService postService;
 
+    /**
+     * 뉴스 피드 v1
+     */
+
     @GetMapping("/api/v1/feeds/{memberId}")
     public Result feeds(@PathVariable("memberId") Long memberId) {
         List<Post> newsFeed = postService.findByNewsFeed(memberId);
@@ -26,7 +30,6 @@ public class FeedController {
                 .collect(Collectors.toList());
         return new Result(collect);
     }
-
 
     @Data
     @AllArgsConstructor

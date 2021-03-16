@@ -2,7 +2,6 @@ package com.example.timelineservice.timeline;
 
 
 import com.example.timelineservice.timeline.domain.Member;
-import com.example.timelineservice.timeline.domain.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

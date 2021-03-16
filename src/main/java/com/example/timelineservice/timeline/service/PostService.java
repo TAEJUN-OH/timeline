@@ -1,7 +1,9 @@
 package com.example.timelineservice.timeline.service;
 
+import com.example.timelineservice.timeline.domain.Follow;
 import com.example.timelineservice.timeline.domain.Member;
 import com.example.timelineservice.timeline.domain.Post;
+import com.example.timelineservice.timeline.repository.FollowRepository;
 import com.example.timelineservice.timeline.repository.MemberRepository;
 import com.example.timelineservice.timeline.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -65,7 +67,6 @@ public class PostService {
      */
     @Transactional
     public void update(Long id, String content) {
-        //엔티티 조회
         Post post = postRepository.findById(id).get();
         post.setContent(content);
     }
