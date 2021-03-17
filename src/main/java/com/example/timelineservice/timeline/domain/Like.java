@@ -1,7 +1,5 @@
 package com.example.timelineservice.timeline.domain;
 
-
-import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
