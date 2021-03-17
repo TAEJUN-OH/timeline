@@ -1,10 +1,13 @@
 package com.example.timelineservice.timeline.controller;
 
 import com.example.timelineservice.timeline.domain.Follow;
+import com.example.timelineservice.timeline.dto.FollowDto;
+import com.example.timelineservice.timeline.request.FollowRequest;
+import com.example.timelineservice.timeline.response.Result;
 import com.example.timelineservice.timeline.service.FollowService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,35 +16,21 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(value = "/api/v1")
 public class FollowController {
 
     private final FollowService followService;
 
-
     /**
      * 회원 팔로우 v1
-     * @param request(memberId , followMemberId)
+     * @param request
      * @return followId
      */
-    @PostMapping("/api/v1/follow")
-    public createFollowResponse follow(@RequestBody @Valid createFollowRequest request) {
-        Long followId = followService.follow(request.getMemberId(), request.getFollowMemberId());
-        return new createFollowResponse(followId);
-    }
-
-    @Data
-    static class createFollowRequest {
-        Long memberId;
-        Long followMemberId;
-    }
-
-    @Data
-    static class createFollowResponse {
-        Long followId;
-
-        public createFollowResponse(Long followId) {
-            this.followId = followId;
-        }
+    @PostMapping("/follow")
+    @ApiOperation(value = "회원 팔로우", notes = "회원을 팔로우 하는 API ")
+    public ResponseEntity<?> follow(@RequestBody @Valid FollowRequest request) {
+        followService.follow(request.getMemberId(), request.getFollowMemberId());
+        return ResponseEntity.noContent().build();
     }
 
 
@@ -50,7 +39,8 @@ public class FollowController {
      * @param followerId
      * @return FollowDto
      */
-    @GetMapping("/api/v1/follower/{followerId}")
+    @GetMapping("/follower/{followerId}")
+    @ApiOperation(value = "팔로워 조회", notes = "팔로워를 조회하는 API")
     public Result follower(@PathVariable("followerId") Long followerId) {
         List<Follow> findFollower = followService.follower(followerId);
         List<FollowDto> collect = findFollower.stream()
@@ -60,28 +50,13 @@ public class FollowController {
     }
 
 
-    @Data
-    @AllArgsConstructor
-    class Result<T> {
-        private T data;
-    }
-
-    @Data
-    @AllArgsConstructor
-    class FollowDto {
-        private Long followId;
-        private String name;
-        private Long memberId;
-        private Long followMemberId;
-    }
-
-
     /**
      * 팔로잉 회원조회 v1
      * @param memberId
      * @return FollowDto
      */
-    @GetMapping("/api/v1/following/{memberId}")
+    @GetMapping("/following/{memberId}")
+    @ApiOperation(value = "팔로잉 회원 조회", notes = "팔로잉 회원(내가 팔로우한 회원)을 조회하는 API")
     public Result following(@PathVariable("memberId") Long memberId) {
         List<Follow> findFollowing = followService.following(memberId);
         List<FollowDto> collect = findFollowing.stream()
@@ -94,8 +69,10 @@ public class FollowController {
      * 회원 언팔로우 v1
      * @param followId
      */
-    @DeleteMapping("/api/v1/follow/{followId}")
-    public void unfollow(@PathVariable("followId") Long followId) {
+    @DeleteMapping("/follow/{followId}")
+    @ApiOperation(value = "회원 언팔로우", notes = "회원을 언팔로우 하는 API")
+    public ResponseEntity<?> unfollow(@PathVariable("followId") Long followId) {
         followService.unfollow(followId);
+        return ResponseEntity.noContent().build();
     }
 }

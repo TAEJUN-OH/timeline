@@ -27,7 +27,7 @@ public class LikeService {
      * @return likeId
      */
     @Transactional
-    public Long like(Long postId , Long memberId) {
+    public void like(Long postId , Long memberId) {
         Boolean isLike = likeRepository.existsByPostIdAndMemberId(postId, memberId);
         if (isLike) {
             throw new IllegalStateException("이미 좋아요를 누르셨습니다");
@@ -40,7 +40,6 @@ public class LikeService {
 
         List<Like> likes = likeRepository.findAllById(postId);
         post.setLikeCnt(likes.size() + 1);
-        return like.getId();
     }
 
 

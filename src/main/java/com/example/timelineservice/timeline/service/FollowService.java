@@ -24,13 +24,12 @@ public class FollowService {
      * @return followId
      */
     @Transactional
-    public Long follow(Long memberId , Long followMemberId) {
+    public void follow(Long memberId , Long followMemberId) {
         Member member = memberService.findOne(memberId);
         Member followMember = memberService.findOne(followMemberId);
         validateFollow(memberId, followMemberId); //팔로우 중복 체크
         Follow follow = Follow.createFollow(member, followMember);
         followRepository.save(follow);
-        return follow.getId();
     }
 
     public void validateFollow(Long memberId , Long followMemberId) {

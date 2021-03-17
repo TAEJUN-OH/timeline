@@ -1,8 +1,11 @@
 package com.example.timelineservice.timeline.controller;
 
+import com.example.timelineservice.timeline.request.CreateLikeRequest;
+import com.example.timelineservice.timeline.request.DeleteLikeRequest;
 import com.example.timelineservice.timeline.service.LikeService;
-import lombok.Data;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -10,6 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(value = "/api/v1")
 public class LikeController {
 
     private final LikeService likeService;
@@ -19,25 +23,11 @@ public class LikeController {
      * @param request(memberId , postId)
      * @return likeId
      */
-    @PostMapping("/api/v1/likes")
-    public CreateLikeResponse create(@RequestBody @Valid CreateLikeRequest request) {
-        Long likeId = likeService.like(request.getPostId(), request.getMemberId());
-        return new CreateLikeResponse(likeId);
-    }
-
-    @Data
-    static class CreateLikeRequest {
-        private Long memberId;
-        private Long postId;
-    }
-
-    @Data
-    class CreateLikeResponse {
-        private Long likeId;
-
-        public CreateLikeResponse(Long id) {
-            this.likeId = id;
-        }
+    @PostMapping("/likes")
+    @ApiOperation(value = "좋아요 등록", notes = "좋아요 등록 API")
+    public ResponseEntity<?> create(@RequestBody @Valid CreateLikeRequest request) {
+        likeService.like(request.getPostId(), request.getMemberId());
+        return ResponseEntity.noContent().build();
     }
 
 
@@ -45,15 +35,11 @@ public class LikeController {
      * 좋아요 취소 v1
      * @param request(likeId , postId)
      */
-    @DeleteMapping("/api/v1/likes")
-    public void delete(@RequestBody DeleteLikeRequest request) {
+    @DeleteMapping("/likes")
+    @ApiOperation(value = "좋아요 취소", notes = "좋아요 취소 API")
+    public ResponseEntity<?> delete(@RequestBody DeleteLikeRequest request) {
         likeService.cancel(request.getLikeId() , request.getPostId());
-    }
-
-    @Data
-    static class DeleteLikeRequest {
-        private Long likeId;
-        private Long postId;
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -1,10 +1,13 @@
 package com.example.timelineservice.timeline.controller;
 
 import com.example.timelineservice.timeline.domain.Post;
+import com.example.timelineservice.timeline.dto.PostDto;
+import com.example.timelineservice.timeline.request.PostRequest;
+import com.example.timelineservice.timeline.response.Result;
 import com.example.timelineservice.timeline.service.PostService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(value = "/api/v1")
 public class PostController {
 
     private final PostService postService;
@@ -23,33 +27,21 @@ public class PostController {
      * @param request(content)
      * @return postId
      */
-    @PostMapping("/api/v1/posts/{memberId}")
-    public CreatePostResponse createPost(@PathVariable("memberId") Long memberId, @RequestBody @Valid CreatePostRequest request) {
-        Long postedId = postService.post(memberId, request.getContent());
-        return new CreatePostResponse(postedId);
+    @PostMapping("/posts/{memberId}")
+    @ApiOperation(value = "포스트 등록", notes = "포스트를 등록하는 API")
+    public ResponseEntity<?> createPost(@PathVariable("memberId") Long memberId, @RequestBody @Valid PostRequest request) {
+        postService.post(memberId, request.getContent());
+        return ResponseEntity.noContent().build();
     }
 
-    @Data
-    static class CreatePostRequest {
-        private String content;
-    }
-
-
-    @Data
-    static class CreatePostResponse {
-        private Long postId;
-
-        public CreatePostResponse(Long id) {
-            this.postId = id;
-        }
-    }
 
     /**
      * 포스트 조회 v1
      * @param memberId
      * @return PostDto
      */
-    @GetMapping("/api/v1/posts/{memberId}")
+    @GetMapping("/posts/{memberId}")
+    @ApiOperation(value = "포스트 조회", notes = "포스트를 조회하는 API")
     public Result findByPost(@PathVariable Long memberId) {
         List<Post> findPosts = postService.findByPosts(memberId);
         List<PostDto> collect = findPosts.stream()
@@ -58,36 +50,17 @@ public class PostController {
         return new Result(collect);
     }
 
-    @Data
-    @AllArgsConstructor
-    class Result<T> {
-        private T data;
-    }
-
-    @Data
-    @AllArgsConstructor
-    class PostDto {
-        private Long id;
-        private String name;
-        private String email;
-        private String content;
-        private Integer likeCnt;
-    }
-
 
     /**
      * 포스트 수정 v1
      * @param postId
      * @param request(content)
      */
-    @PostMapping("/api/v1/{postId}/posts")
-    public void updatePost(@PathVariable("postId") Long postId, @RequestBody @Valid UpdatePostRequest request) {
+    @PostMapping("/{postId}/posts")
+    @ApiOperation(value = "포스트 내용 수정", notes = "포스트 내용을 수정하는 API")
+    public ResponseEntity<?> updatePost(@PathVariable("postId") Long postId, @RequestBody @Valid PostRequest request) {
         postService.update(postId, request.getContent());
-    }
-
-    @Data
-    static class UpdatePostRequest {
-        private String content;
+        return ResponseEntity.noContent().build();
     }
 
 
@@ -95,8 +68,10 @@ public class PostController {
      * 포스트 삭제 v1
      * @param postId
      */
-    @DeleteMapping("/api/v1/posts/{postId}")
-    public void deletePost(@PathVariable Long postId) {
+    @DeleteMapping("/posts/{postId}")
+    @ApiOperation(value = "포스트 삭제", notes = "포스트 삭제 API")
+    public ResponseEntity<?> deletePost(@PathVariable Long postId) {
         postService.delete(postId);
+        return ResponseEntity.noContent().build();
     }
 }

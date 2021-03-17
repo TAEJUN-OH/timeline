@@ -16,7 +16,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      */
     List<Post> findAllByIdOrderByCreatedAtDesc(Long memberId);
 
-    //
+
 
     /**
      * 뉴스피드 조회
