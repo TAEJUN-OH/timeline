@@ -1,345 +1,237 @@
 {
+	"variables": [],
 	"info": {
-		"_postman_id": "1e997bd1-6db4-4498-a56e-df9d5efe18d9",
 		"name": "timeline",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "b4a4dd69-4e28-e578-dedc-1deafcb1a7cb",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "회원등록",
 			"request": {
-				"method": "GET",
-				"header": [],
-				"url": null
+				"url": "http://localhost:9999/api/v1/members",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"userF\" , \n\t\"email\" :\"fff@gmail.com\"\n}"
+				},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "회원 전체조회",
 			"request": {
+				"url": "http://localhost:9999/api/v1/members",
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:9999/api/v1/members",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"members"
-					]
-				}
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "회원조회",
 			"request": {
+				"url": "http://localhost:9999/api/v1/members/1",
 				"method": "GET",
 				"header": [],
-				"url": null
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "회원수정",
 			"request": {
+				"url": "http://localhost:9999/api/v1/members/1",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
-						"type": "text"
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "\r\n{\r\n    \"name\" : \"userA 이름변경\",\r\n    \"email\" : \"userA 이메일 변경\"\r\n}    "
 				},
-				"url": {
-					"raw": "http://localhost:9999/api/v1/members/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"members",
-						"1"
-					]
-				}
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "회원삭제",
 			"request": {
+				"url": "http://localhost:9999/api/v1/members/5",
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:9999/api/v1/members/4",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"members",
-						"4"
-					]
-				}
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "포스트등록",
 			"request": {
+				"url": "http://localhost:9999/api/v1/posts/1",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
-						"type": "text"
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"content\" : \"컨텐츠등록\"\r\n}"
 				},
-				"url": {
-					"raw": "http://localhost:9999/api/v1/posts/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"posts",
-						"1"
-					]
-				}
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "포스트수정",
 			"request": {
+				"url": "http://localhost:9999/api/v1/1/posts",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
-						"type": "text"
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"conent\" : \"컨텐츠 수정\"\r\n}"
+					"raw": "{\r\n    \"content\" : \"컨텐츠 수정\"\r\n}"
 				},
-				"url": {
-					"raw": "http://localhost:9999/api/v1/1/posts",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"1",
-						"posts"
-					]
-				}
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "포스트 조회",
 			"request": {
+				"url": "http://localhost:9999/api/v1/posts/1",
 				"method": "GET",
 				"header": [],
-				"url": null
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "좋아요 등록",
 			"request": {
+				"url": "http://localhost:9999/api/v1/likes",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
-						"type": "text"
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"memberId\" : 2,\r\n    \"postId\" : 1\r\n}"
 				},
-				"url": {
-					"raw": "http://localhost:9999/api/v1/likes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"likes"
-					]
-				}
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "좋아요 취소",
 			"request": {
+				"url": "http://localhost:9999/api/v1/likes",
 				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9999/api/v1/likes/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"likes",
-						"2"
-					]
-				}
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"likeId\":1,\n\t\"postId\" : 1\n}"
+				},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "팔로우",
 			"request": {
+				"url": "http://localhost:9999/api/v1/follow",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
-						"type": "text"
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"memberId\" : 1,\r\n    \"followMemberId\" : 2\r\n}"
 				},
-				"url": {
-					"raw": "http://localhost:9999/api/v1/follow",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"follow"
-					]
-				}
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "팔로워 조회",
 			"request": {
+				"url": "http://localhost:9999/api/v1/follower/2",
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:9999/api/v1/follower/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"follower",
-						"1"
-					]
-				}
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "팔로잉 조회",
 			"request": {
+				"url": "http://localhost:9999/api/v1/following/1",
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:9999/api/v1/following/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"following",
-						"1"
-					]
-				}
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "언팔로우",
 			"request": {
+				"url": "http://localhost:9999/api/v1/follow/2",
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:9999/api/v1/follow/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"follow",
-						"2"
-					]
-				}
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "뉴스피드",
 			"request": {
+				"url": "http://localhost:9999/api/v1/feeds/1",
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:9999/api/v1/feeds/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9999",
-					"path": [
-						"api",
-						"v1",
-						"feeds",
-						"1"
-					]
-				}
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		}
