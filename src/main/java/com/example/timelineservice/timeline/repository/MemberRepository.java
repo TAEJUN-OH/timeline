@@ -7,5 +7,10 @@ import java.util.List;
 
 public interface MemberRepository extends JpaRepository<Member,Long> {
 
+    /**
+     * 회원찾기
+     * @param email
+     * @return MemberList
+     */
     List<Member> findByEmail(String email);
 }

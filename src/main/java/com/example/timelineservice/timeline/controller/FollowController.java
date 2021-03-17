@@ -17,8 +17,11 @@ public class FollowController {
 
     private final FollowService followService;
 
+
     /**
      * 회원 팔로우 v1
+     * @param request(memberId , followMemberId)
+     * @return followId
      */
     @PostMapping("/api/v1/follow")
     public createFollowResponse follow(@RequestBody @Valid createFollowRequest request) {
@@ -41,8 +44,11 @@ public class FollowController {
         }
     }
 
+
     /**
-     * 팔로워 회원 v1
+     * 팔로워 회원조회 v1
+     * @param followerId
+     * @return FollowDto
      */
     @GetMapping("/api/v1/follower/{followerId}")
     public Result follower(@PathVariable("followerId") Long followerId) {
@@ -71,7 +77,9 @@ public class FollowController {
 
 
     /**
-     * 팔로잉 회원 v1
+     * 팔로잉 회원조회 v1
+     * @param memberId
+     * @return FollowDto
      */
     @GetMapping("/api/v1/following/{memberId}")
     public Result following(@PathVariable("memberId") Long memberId) {
@@ -82,9 +90,9 @@ public class FollowController {
         return new Result(collect);
     }
 
-
     /**
      * 회원 언팔로우 v1
+     * @param followId
      */
     @DeleteMapping("/api/v1/follow/{followId}")
     public void unfollow(@PathVariable("followId") Long followId) {

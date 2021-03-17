@@ -16,6 +16,8 @@ public class LikeController {
 
     /**
      * 좋아요 등록 v1
+     * @param request(memberId , postId)
+     * @return likeId
      */
     @PostMapping("/api/v1/likes")
     public CreateLikeResponse create(@RequestBody @Valid CreateLikeRequest request) {
@@ -41,6 +43,7 @@ public class LikeController {
 
     /**
      * 좋아요 취소 v1
+     * @param request(likeId , postId)
      */
     @DeleteMapping("/api/v1/likes")
     public void delete(@RequestBody DeleteLikeRequest request) {

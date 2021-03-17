@@ -27,6 +27,7 @@ public class InitDb {
 
         private final EntityManager em;
 
+        //회원 미리 등록
         public void dbInit1() {
             Member member = new Member();
             member.setName("userA");

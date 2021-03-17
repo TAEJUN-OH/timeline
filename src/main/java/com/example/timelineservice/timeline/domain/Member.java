@@ -45,7 +45,7 @@ public class Member {
     @JsonIgnoreProperties({"followMember"})
     private List<Follow> following = new ArrayList<>();
 
-    //==생성 메서드==//
+    //==회원 생성 메서드==//
     public static Member createMember(String name , String email) {
         Member member = new Member();
         member.setName(name);

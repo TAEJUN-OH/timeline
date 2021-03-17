@@ -19,9 +19,10 @@ public class FeedController {
     private final PostService postService;
 
     /**
-     * 뉴스 피드 v1
+     * 뉴스 피드 조회 v1
+     * @param memberId
+     * @return FeedDto
      */
-
     @GetMapping("/api/v1/feeds/{memberId}")
     public Result feeds(@PathVariable("memberId") Long memberId) {
         List<Post> newsFeed = postService.findByNewsFeed(memberId);

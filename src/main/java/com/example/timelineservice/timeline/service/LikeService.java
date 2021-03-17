@@ -22,6 +22,9 @@ public class LikeService {
 
     /**
      * 좋아요 등록
+     * @param postId
+     * @param memberId
+     * @return likeId
      */
     @Transactional
     public Long like(Long postId , Long memberId) {
@@ -43,6 +46,8 @@ public class LikeService {
 
     /**
      * 좋아요 취소
+     * @param likeId
+     * @param postId
      */
     @Transactional
     public void cancel(Long likeId , Long postId) {

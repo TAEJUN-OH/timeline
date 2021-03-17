@@ -16,7 +16,9 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     /**
-     *  회원가입
+     * 회원가입
+     * @param member
+     * @return memberId
      */
     @Transactional
     public Long join(Member member) {
@@ -36,14 +38,18 @@ public class MemberService {
 
     /**
      * 회원 전체조회
+     * @return
      */
     @Transactional(readOnly = true)
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
+
     /**
      * 회원 조회
+     * @param memberId
+     * @return Member
      */
     @Transactional(readOnly = true)
     public Member findOne(Long memberId) {
@@ -53,6 +59,9 @@ public class MemberService {
 
     /**
      * 회원 수정
+     * @param id
+     * @param name
+     * @param email
      */
     @Transactional
     public void update(Long id, String name , String email) { //변경감지
@@ -61,8 +70,11 @@ public class MemberService {
         member.setEmail(email);
     }
 
+
+
     /**
      * 회원 삭제
+     * @param memberId
      */
     @Transactional
     public void delete(Long memberId) { //변경감지

@@ -43,7 +43,7 @@ public class Follow {
     }
 
 
-    //== 생성 메서드 ==//
+    //== 팔로우 생성 메서드 ==//
     public static Follow createFollow(Member member , Member followMember) {
         Follow follow = new Follow();
         follow.setMember(member);

@@ -18,8 +18,12 @@ public class PostService {
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
 
+
     /**
      * 포스팅
+     * @param memberId
+     * @param content
+     * @return postId
      */
     @Transactional
     public Long post(Long memberId , String content) {
@@ -36,8 +40,11 @@ public class PostService {
         return post.getId();
     }
 
+
     /**
      * 포스트 조회
+     * @param postId
+     * @return Post
      */
     @Transactional(readOnly = true)
     public Post findOne(Long postId){
@@ -48,6 +55,8 @@ public class PostService {
 
     /**
      * 내 포스트 조회 (10개씩) paging 추가예정
+     * @param memberId
+     * @return PostList
      */
     @Transactional(readOnly = true)
     public List<Post> findByPosts(Long memberId){
@@ -56,9 +65,10 @@ public class PostService {
     }
 
 
-
     /**
      * 뉴스 피드 (10개씩) paging 추가예정
+     * @param memberId
+     * @return NewsFeed
      */
     @Transactional(readOnly = true)
     public List<Post> findByNewsFeed(Long memberId) {
@@ -67,9 +77,10 @@ public class PostService {
         return findNewsFeed;
     }
 
-
     /**
      * 포스트 수정
+     * @param id
+     * @param content
      */
     @Transactional
     public void update(Long id, String content) {
@@ -79,6 +90,7 @@ public class PostService {
 
     /**
      * 포스트 삭제
+     * @param id
      */
     @Transactional
     public void delete(Long id) {

@@ -18,8 +18,11 @@ public class MemberController {
 
     private final MemberService memberService;
 
+
     /**
      * 회원 등록 V1
+     * @param request(name , email)
+     * @return memberId
      */
     @PostMapping("/api/v1/members")
     public CreateMemberResponse createMember(@RequestBody @Valid CreateMemberRequest request) {
@@ -41,22 +44,25 @@ public class MemberController {
 
     @Data
     static class CreateMemberResponse { //클라이언트로 보내줄 데이터
-        private Long id;
+        private Long memberId;
 
-        public CreateMemberResponse(Long id) {
-            this.id = id;
+        public CreateMemberResponse(Long memberId) {
+            this.memberId = memberId;
         }
     }
 
 
     /**
      * 회원 수정 V1
+     * @param memberId
+     * @param request(name , email)
+     * @return UpdateMemberResponse(memberId , name , email)
      */
     @PostMapping("/api/v1/members/{memberId}")
-    public UpdateMemberResponse updateMember(@PathVariable("memberId") Long id,
+    public UpdateMemberResponse updateMember(@PathVariable("memberId") Long memberId,
                                              @RequestBody @Valid UpdateMemberRequest request) {
-        memberService.update(id, request.getName() , request.getEmail());
-        Member findMember = memberService.findOne(id);
+        memberService.update(memberId, request.getName() , request.getEmail());
+        Member findMember = memberService.findOne(memberId);
         return new UpdateMemberResponse(findMember.getId(), findMember.getName() , findMember.getEmail());
     }
 
@@ -69,13 +75,16 @@ public class MemberController {
     @Data
     @AllArgsConstructor
     class UpdateMemberResponse {
-        private Long id;
+        private Long memberId;
         private String name;
         private String email;
     }
 
+
     /**
      * 회원 조회 V1
+     * @param memberId
+     * @return MemberDto
      */
     @GetMapping("/api/v1/members/{memberId}")
     public MemberDto findMember(@PathVariable("memberId") Long memberId) {
@@ -86,6 +95,7 @@ public class MemberController {
 
     /**
      * 회원 전체조회 V1
+     * @return
      */
     @GetMapping("/api/v1/members")
     public Result members() {
@@ -114,9 +124,13 @@ public class MemberController {
         private String delYn;
     }
 
+    /**
+     * 회원삭제
+     * @param memberId
+     */
     @DeleteMapping("/api/v1/members/{memberId}")
-    public void deleteMember (@PathVariable("memberId") Long id) {
-        memberService.delete(id);
+    public void deleteMember (@PathVariable("memberId") Long memberId) {
+        memberService.delete(memberId);
     }
 
 }

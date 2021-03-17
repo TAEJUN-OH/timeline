@@ -39,7 +39,7 @@ public class Like {
     }
 
 
-    //==생성 메서드==/
+    //== Like 생성 메서드==/
     public static Like createLike(Member member , Post post) {
         Like like = new Like();
         like.setMember(member);

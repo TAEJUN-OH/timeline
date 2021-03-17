@@ -17,9 +17,11 @@ public class FollowService {
     private final MemberService memberService;
     private final FollowRepository followRepository;
 
-
     /**
      * 팔로우
+     * @param memberId
+     * @param followMemberId
+     * @return followId
      */
     @Transactional
     public Long follow(Long memberId , Long followMemberId) {
@@ -40,6 +42,8 @@ public class FollowService {
 
     /**
      * 팔로워 조회
+     * @param followMemberId
+     * @return followMember
      */
     @Transactional
     public List<Follow> follower(Long followMemberId) {
@@ -50,6 +54,8 @@ public class FollowService {
 
     /**
      * 팔로잉 조회
+     * @param memberId
+     * @return Member
      */
     @Transactional
     public List<Follow> following(Long memberId) {
@@ -57,9 +63,9 @@ public class FollowService {
         return followRepository.findByMember(followingMember);
     }
 
-
     /**
      * 언팔로우
+     * @param follow_id
      */
     @Transactional
     public void unfollow(Long follow_id) {

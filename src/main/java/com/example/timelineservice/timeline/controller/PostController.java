@@ -19,6 +19,9 @@ public class PostController {
 
     /**
      * 포스트 등록 v1
+     * @param memberId
+     * @param request(content)
+     * @return postId
      */
     @PostMapping("/api/v1/posts/{memberId}")
     public CreatePostResponse createPost(@PathVariable("memberId") Long memberId, @RequestBody @Valid CreatePostRequest request) {
@@ -34,15 +37,17 @@ public class PostController {
 
     @Data
     static class CreatePostResponse {
-        private Long id;
+        private Long postId;
 
         public CreatePostResponse(Long id) {
-            this.id = id;
+            this.postId = id;
         }
     }
 
     /**
      * 포스트 조회 v1
+     * @param memberId
+     * @return PostDto
      */
     @GetMapping("/api/v1/posts/{memberId}")
     public Result findByPost(@PathVariable Long memberId) {
@@ -72,6 +77,8 @@ public class PostController {
 
     /**
      * 포스트 수정 v1
+     * @param postId
+     * @param request(content)
      */
     @PostMapping("/api/v1/{postId}/posts")
     public void updatePost(@PathVariable("postId") Long postId, @RequestBody @Valid UpdatePostRequest request) {
@@ -84,9 +91,9 @@ public class PostController {
     }
 
 
-
     /**
      * 포스트 삭제 v1
+     * @param postId
      */
     @DeleteMapping("/api/v1/posts/{postId}")
     public void deletePost(@PathVariable Long postId) {
